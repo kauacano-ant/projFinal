@@ -1,0 +1,283 @@
+﻿<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza de que deseja excluir este item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteId" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@model IEnumerable<Somativa_2.Models.ConsultasModel>
+
+<h1 class="text-center fw-bold">CONFIRA NOSSAS CONSULTAS</h1>
+
+<p class="d-none">
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<!-- Descrição adaptada para diferentes tamanhos de tela -->
+<p class="m-3 text-center d-none d-xl-block" style="font-size:20px">
+    Agende suas consultas de forma simples e rápida. A saúde da sua família em boas mãos!
+</p>
+<p class="m-3 d-block d-xl-none" style="font-size:20px;text-align:justify">
+    Agende suas consultas de forma simples e rápida. A saúde da sua família em boas mãos!
+</p>
+
+<!-- Tabela Responsiva -->
+<div class="table-responsive d-none d-md-block">
+    <table class="table table-bordered">
+        <thead class="table-primary text-center" style="background-color: #d0e5f5;">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.DataConsultas)</th>
+                <th>@Html.DisplayNameFor(model => model.Hora)</th>
+                <th >@Html.DisplayNameFor(model => model.Consultorio.Nome)</th>
+                <th class="d-none d-lg-table-cell">@Html.DisplayNameFor(model => model.Consultorio)</th>
+                <th >@Html.DisplayNameFor(model => model.Pacientes.Nome)</th>
+                <th class="d-none d-lg-table-cell">@Html.DisplayNameFor(model => model.Pacientes)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center">Nenhuma consulta encontrada.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>@item.DataConsultas.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Hora.ToString("HH:mm")</td>
+                        <td >@Html.DisplayFor(modelItem => item.Consultorio.Nome)</td>
+                        <td class="d-none d-lg-table-cell">
+                            <img src="~/img/@item.Consultorio.img" alt="Imagem do Consultório"  style="width: 50px; height:50px; border-radius: 10px;" />
+                        </td>
+                        <td >@Html.DisplayFor(modelItem => item.Pacientes.Nome)</td>
+                        <td class="d-none d-lg-table-cell">
+                            <img src="~/img/@item.Pacientes.img" alt="Imagem do Paciente"  style="width: 50px; height:50px; border-radius: 10px;" />
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <!-- Botões de ação -->
+                                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#consultaDetailsModal"
+                                        data-data="@item.DataConsultas.ToString("dd/MM/yyyy")"
+                                        data-hora="@item.Hora.ToString("HH:mm")"
+                                        data-consultorio="@item.Consultorio.Nome"
+                                        data-paciente="@item.Pacientes.Nome">
+                                    <i class="bi bi-folder2-open" style="color: #157EBB; font-size: 25px;"></i>
+                                </button>
+                                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.ConsultaId">
+                                    <i class="bi bi-trash-fill" style="color: #157EBB; font-size: 25px;"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Versão em Cards para celular -->
+<div class="d-block d-md-none">
+    @if (!Model.Any())
+    {
+        <p class="text-center">Nenhuma consulta encontrada.</p>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center">@item.DataConsultas.ToString("dd/MM/yyyy") - @item.Hora.ToString("HH:mm")</h5>
+                    <p><strong>Consultório:</strong> @item.Consultorio.Nome</p>
+                    <p><strong>Paciente:</strong> @item.Pacientes.Nome</p>
+                    <div class="d-flex justify-content-center">
+                        <!-- Div do mapa -->
+                        <div class="map-container" id="map-@item.ConsultaId" style="height: 200px; width: 100%;"></div>
+                    </div>
+                    <!-- Botões de ação -->
+                    <div class="mt-3 d-flex justify-content-center">
+                        <button class="btn btn-primary btn-sm m-2" data-bs-toggle="modal" data-bs-target="#consultaDetailsModal"
+                                data-data="@item.DataConsultas.ToString("dd/MM/yyyy")"
+                                data-hora="@item.Hora.ToString("HH:mm")"
+                                data-consultorio="@item.Consultorio.Nome"
+                                data-paciente="@item.Pacientes.Nome">
+                            Detalhes
+                        </button>
+                        <button class="btn btn-danger btn-sm m-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.ConsultaId">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+<div class="container mb-5">
+    <h1 class="m-2 p-2">Confira as perguntas mais recentes</h1>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion">
+            <h2 class="accordion-header " id="flush-headingOne">
+                <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Quais são as melhores práticas para manter minha saúde (exercícios, dieta, etc.)?
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+                </div>
+            </div>
+        </div>
+        <div class="accordion">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Que fatores de risco eu deveria monitorar?
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Como posso entrar em contato com você caso tenha mais perguntas após a consulta?
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+            </div>
+        </div>
+    </div>
+    <div class=" accordion">
+        <h2 class="accordion-header" id="flush-headingFor">
+            <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFor" aria-expanded="false" aria-controls="flush-collapseFor">
+                Como o estresse pode afetar minha saúde, e o que posso fazer para gerenciá-lo?
+            </button>
+        </h2>
+        <div id="flush-collapseFor" class="accordion-collapse collapse" aria-labelledby="flush-headingFor" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal de Detalhes da Consulta -->
+<div class="modal fade" id="consultaDetailsModal" tabindex="-1" aria-labelledby="consultaDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-custom modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="consultaDetailsModalLabel">Detalhes da Consulta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column">
+                <h5><strong>Data da Consulta:</strong> <span id="consultaData"></span></h5>
+                <h5><strong>Hora:</strong> <span id="consultaHora"></span></h5>
+                <h5><strong>Consultório:</strong> <span id="consultaConsultorio"></span></h5>
+                <h5><strong>Paciente:</strong> <span id="consultaPaciente"></span></h5>
+                <h5><strong>Usuário:</strong> <span id="consultaUser"></span></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var deleteIdInput = deleteModal.querySelector('#deleteId');
+            deleteIdInput.value = id;
+        });
+        var consultaDetailsModal = document.getElementById('consultaDetailsModal');
+        consultaDetailsModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var data = button.getAttribute('data-data');
+            var hora = button.getAttribute('data-hora');
+            var consultorio = button.getAttribute('data-consultorio');
+            var paciente = button.getAttribute('data-paciente');
+            var user = button.getAttribute('data-user');
+
+            // Preenche os dados na modal
+            consultaDetailsModal.querySelector('#consultaData').textContent = data;
+            consultaDetailsModal.querySelector('#consultaHora').textContent = hora;
+            consultaDetailsModal.querySelector('#consultaConsultorio').textContent = consultorio;
+            consultaDetailsModal.querySelector('#consultaPaciente').textContent = paciente;
+            consultaDetailsModal.querySelector('#consultaUser').textContent = user || 'N/A';
+        });
+        
+
+
+    </script>
+
+    <!-- Script para carregar o Google Maps -->
+    <script async
+            defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXP6KgjSD6Zh1HcAE-q6dh0634rjHftDE&callback=initMap">
+    </script>
+
+    <script>
+        function initMap() {
+            // Array de localizações fixas para cada consulta
+            var locations = [
+                { lat: -22.285567, lng: -48.126701 },  // Localização 1
+                { lat: -22.276000, lng: -48.126800 },  // Localização 2 (São Paulo)
+                { lat: -22.296000, lng: -48.126900 },  // Localização 3 (Rio de Janeiro)
+                // Adicione mais localizações conforme necessário
+            ];
+
+            // Seleciona todos os contêineres de mapa
+            var mapContainers = document.querySelectorAll('.map-container');
+
+            mapContainers.forEach(function (container, index) {
+                // Se o índice for maior que o número de localizações, reinicia o ciclo
+                var location = locations[index % locations.length];
+
+                // Inicializa o mapa no contêiner atual
+                var map = new google.maps.Map(container, {
+                    zoom: 14,
+                    center: location
+                });
+
+                // Adiciona um marcador na localização atual
+                new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+            });
+        }
+
+
+
+
+
+    </script>
+
+}

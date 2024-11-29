@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Privacy";
+}
+
+<style>
+    .specialties-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 40px;
+    }
+
+    .specialties-content .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+    .specialties-header h3 {
+        font-size: 28px;
+        margin-top: 40px;
+    }
+
+    .specialties-header h4 {
+        color: #157EBB;
+        font-size: 18px;
+    }
+</style>
+
+<div class="container">
+    <!-- Quem Somos -->
+    <div class="row align-items-center text-white" style="background-color: #157EBB; padding: 20px;">
+        <div class="col-md-6 text-center text-md-start">
+            <h5>QUEM SOMOS</h5>
+            <h2>Um time de especialistas egressos das principais instituições do Brasil!</h2>
+            <p class="mt-4">
+                No Viva+, nossa equipe está dedicada a cuidar de você com excelência e compromisso. <br>
+                Aqui, sua saúde é nossa prioridade!
+            </p>
+        </div>
+        <div class="col-md-6 text-center">
+            <img src="/img/g1.jpg" alt="Equipe médica" class="img-fluid rounded">
+        </div>
+    </div>
+
+    <!-- Nosso Propósito -->
+    <div class="text-center py-4" style="background-color: #EDEDED;">
+        <h3 style="color: #157EBB;">Nosso Propósito</h3>
+        <p class="display-5">Melhorar a qualidade da assistência em saúde no Brasil.</p>
+        <p>No Viva+, somos seus parceiros na busca por uma vida saudável e plena. Trabalhamos com dedicação e excelência para oferecer o melhor cuidado e suporte, garantindo que sua saúde esteja sempre em boas mãos.</p>
+    </div>
+
+    <!-- Especialidades -->
+    <div class="specialties-header text-center">
+        <h3>ESPECIALIDADES</h3>
+        <h4>ATENDIMENTO PRESENCIAL E TELEMEDICINA</h4>
+    </div>
+    <div class="row align-items-center specialties-section">
+        <div class="col-md-4 mb-3">
+            <img src="/img/g2.jpg" alt="Médica especialista" class="img-fluid rounded">
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <i class="bi bi-heart-pulse-fill" style="font-size: 60px;"></i>
+                        <h5>MEDICINA</h5>
+                        <p>Sob a ótica de uma medicina voltada para a prevenção de doenças e com uma abordagem totalmente integrada, nossa equipe de médicos atua de forma a promover a saúde através da mudança de estilo de vida e cuidados contínuos, sempre buscando um plano de longevidade mais saudável.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <i class="bi bi-hospital-fill" style="font-size: 60px;"></i>
+                        <h5>CLÍNICA GERAL</h5>
+                        <p>Com uma abordagem focada na saúde integral, nossa equipe de clínica geral no Viva+ está aqui para promover o bem-estar por meio de cuidados preventivos e personalizados. Trabalhamos para identificar e corrigir desequilíbrios antes que se tornem problemas graves, promovendo a manutenção de estilos de vida saudáveis e bem equilibrados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profissionais -->
+    <div class="text-center py-4">
+        <h3 class="d-inline-block bg-primary text-white py-2 px-4 rounded">Profissionais</h3>
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card text-center">
+                    <img src="/img/g8.png" alt="Dra. Amanda Simões" class="rounded-circle mx-auto d-block" style="width: 100px;">
+                    <h5 class="mt-3">Dra. Amanda Simões</h5>
+                    <h4 class="text-primary">MÉDICA E RESPONSÁVEL TÉCNICA</h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card text-center">
+                    <img src="/img/g8.png" alt="Dr. Frederico Costa" class="rounded-circle mx-auto d-block" style="width: 100px;">
+                    <h5 class="mt-3">Dr. Frederico Costa</h5>
+                    <h4 class="text-primary">MÉDICO</h4>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6 mb-3">
+                <div class="card text-center">
+                    <img src="/img/g9.png" alt="Dra. Ângela Magalhães" class="rounded-circle mx-auto d-block" style="width: 100px;">
+                    <h5 class="mt-3">Dra. Ângela Magalhães</h5>
+                    <h4 class="text-primary">MÉDICA</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

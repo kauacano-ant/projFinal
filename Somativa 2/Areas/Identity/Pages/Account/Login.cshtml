@@ -1,0 +1,114 @@
+﻿@page
+@model LoginModel
+
+@{
+  
+    ViewData["Title"] = "LOGIN";
+}
+ <style>
+
+ </style>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <!-- Formulário de Login -->
+        <div class="col-lg-6 col-md-8" style="margin-top:90px">
+            <h1 class="text-center fw-bold">@ViewData["Title"]</h1>
+            <h4 class="text-center">Faça login para acessar sua conta</h4>
+            <form id="loginForm" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="Email" />
+                    <label asp-for="Input.Email">Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Senha" />
+                    <label asp-for="Input.Password">Senha</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    <label class="form-check-label" asp-for="Input.RememberMe">
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+                    <a href="@Url.Page("./ForgotPassword")">Esqueceu sua senha?</a>
+                </div>
+
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Entrar</button>
+
+                <div class="text-center mt-3">
+                    <p class="mb-0">Não tem conta? <a asp-page="./Register">Cadastre-se</a></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Imagem lateral -->
+        <div class="col-lg-6 d-none d-lg-block" style="position:relative; height:622px;">
+            <img src="~/img/Doctor.jpg" style="margin-left:6.7%;margin-top:-50px;margin-bottom:-63px;" alt="Imagem médica" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    h1 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        color: #001C42;
+    }
+
+    .form-control {
+        border-radius: 10px;
+        border: 1px solid #ced4da;
+    }
+
+    .form-floating > label {
+        padding-left: 15px;
+    }
+
+    .form-floating > .form-control {
+        padding: 20px 10px;
+    }
+
+    .form-floating {
+        margin-bottom: 20px;
+    }
+
+    button[type="submit"] {
+        background-color: #007bff;
+        border: none;
+        font-size: 1.2rem;
+        padding: 10px;
+        margin-top: 15px;
+    }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+    a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+</style>

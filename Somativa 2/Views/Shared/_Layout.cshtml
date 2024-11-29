@@ -1,0 +1,155 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Somativa_2</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Somativa_2.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/img/logo.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.png" style="height:60px; width:90px; margin-left:20px" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav flex-grow-1 d-flex justify-content-center">
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ConsultasModels" asp-action="Index">Consultas</a>
+                            </li>
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="ConsultoriosModels" asp-action="Index">Consultorios</a>
+                            </li>
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="FeedbackModels" asp-action="Index">Feedback</a>
+                            </li>
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="PacientesModels" asp-action="Index">Pacientes</a>
+                            </li>
+                            <li class="nav-item m-2">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="PlanodeSaudeModels" asp-action="Index">Plano de Saude</a>
+                            </li>
+                            <li class="nav-item m-2 d-lg-none">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Gerenciar Conta">Gerenciar Conta</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item m-2 d-lg-none">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categs" asp-action="Index">Consultorio Config</a>
+                                </li>
+
+                            }
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item m-2 d-lg-none">
+                                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                                        <button type="submit" class="nav-link btn btn-primary text-light text-center" style="width: 332px; text-align: left;">
+                                            Sair
+                                        </button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+
+
+        .content {
+            flex: 1 0 auto; /* Ocupa o restante da página */
+        }
+
+        footer {
+            flex-shrink: 0;
+        }
+    </style> 
+
+    @{
+        // Verifica se a página atual é Login ou Register
+        var currentPath = Context.Request.Path;
+        var isAuthPage = currentPath.StartsWithSegments("/Identity/Account/Login") ||
+        currentPath.StartsWithSegments("/Identity/Account/Register");
+
+    }
+
+    @if (!isAuthPage)
+    {
+       
+        <footer class="text-dark py-4 mt-5" style="background-color:#cfe2ff">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Viva+ Saúde</h5>
+                        <p>Seu bem-estar é a nossa prioridade. Oferecemos serviços médicos de alta qualidade com um atendimento humanizado.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Links Importantes</h5>
+                        <ul class="list-unstyled">
+                            <li> <a class=" text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li><a class=" text-dark" asp-area="" asp-controller="ConsultasModels" asp-action="Index">Consultas</a></li>
+                            <li><a class=" text-dark" asp-area="" asp-controller="FeedbackModels" asp-action="Index">Feedback</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Conecte-se Conosco</h5>
+                        <div>
+                            <a href="#" class="text-dark me-3"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="text-dark me-3"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="text-dark me-3"><i class="bi bi-instagram"></i></a>
+                        </div>
+                        <p>&copy; 2024 Viva+ | Todos os direitos reservados</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }
+    
+    
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

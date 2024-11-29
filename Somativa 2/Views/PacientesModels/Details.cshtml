@@ -1,0 +1,197 @@
+﻿@model Somativa_2.Models.PacientesModel
+
+@{
+	ViewData["Title"] = "Details";
+}
+<h1 class="text-center ">Suas informações</h1>
+
+<div class="container mt-5">
+	<div class="card mx-auto p-3 shadow-lg" style="max-width: 600px;">
+		<form asp-action="Create" enctype="multipart/form-data">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+			<!-- Imagem do Paciente -->
+			<div class="text-center mb-3">
+				<img src="~/img/@Model.img" alt="Imagem do Paciente" class="img-fluid " style="width: 150px; height: 150px;border-radius:10px">
+			</div>
+
+			<!-- Dados do Paciente --> 
+			<div class="row g-3">
+				<div class="col-sm-12 col-md-6">
+					<label asp-for="Nome" class="form-label"></label>
+					<input asp-for="Nome" class="form-control" readonly />
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label asp-for="CPF" class="form-label"></label>
+					<input asp-for="CPF" class="form-control" readonly />
+				</div>
+			</div>
+
+			<div class="row g-3 mt-2">
+				<div class="col-sm-12 col-md-6">
+					<label asp-for="RG" class="form-label"></label>
+					<input asp-for="RG" class="form-control" readonly />
+				</div>
+				<div class="col-sm-12 col-md-6">
+					<label asp-for="Data_de_nascimento" class="form-label"></label>
+					<input asp-for="Data_de_nascimento" class="form-control" readonly />
+				</div>
+			</div>
+
+			<div class="mt-3">
+				<label asp-for="Endereco" class="form-label"></label>
+				<input asp-for="Endereco" class="form-control" readonly />
+			</div>
+			<div class="mt-3">
+				<label asp-for="Telefone" class="form-label"></label>
+				<input asp-for="Telefone" class="form-control" readonly />
+			</div>
+
+			<!-- Botões de Ação -->
+			<div class="d-flex flex-column flex-md-row justify-content-between mt-4">
+				<button type="button" class="btn btn-primary mb-2 mb-md-0 w-100 me-md-2" data-bs-toggle="modal" data-bs-target="#editPacienteModal"
+						data-id="@Model.PacienteId" data-nome="@Model.Nome" data-cpf="@Model.CPF"
+						data-rg="@Model.RG" data-datanascimento="@Model.Data_de_nascimento"
+						data-endereco="@Model.Endereco" data-telefone="@Model.Telefone"
+						data-planosaudeid="@Model.PlanodeSaudeId" data-img="@Model.img">
+					Editar
+				</button>
+				<button type="button" class="btn btn-danger w-100 ms-md-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@Model.PacienteId">
+					Excluir
+				</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- Exibição do modal para edição do paciente -->
+<div class="modal fade" id="editPacienteModal" tabindex="-1" aria-labelledby="editPacienteModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editPacienteModalLabel">Editar Paciente</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<form asp-action="Edit" method="post" enctype="multipart/form-data">
+				<div class="modal-body">
+					<!-- Campo oculto para o ID do paciente -->
+					<input type="hidden" id="PacienteId" name="PacienteId" value="@Model.PacienteId" />
+
+					<!-- Campos de edição do paciente -->
+					<div class="mb-3">
+						<label for="editNome" class="form-label">Nome</label>
+						<input type="text" class="form-control" id="editNome" name="Nome" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="editCPF" class="form-label">CPF</label>
+						<input type="text" class="form-control" id="editCPF" name="CPF" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="editRG" class="form-label">RG</label>
+						<input type="text" class="form-control" id="editRG" name="RG" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="editDataNascimento" class="form-label">Data de Nascimento</label>
+						<input type="date" class="form-control" id="editDataNascimento" name="Data_de_nascimento" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="editEndereco" class="form-label">Endereço</label>
+						<input type="text" class="form-control" id="editEndereco" name="Endereco" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="editTelefone" class="form-label">Telefone</label>
+						<input type="text" class="form-control" id="editTelefone" name="Telefone" required />
+					</div>
+
+					<div class="mb-3">
+						<label for="editPlanoSaude" class="form-label">Plano de Saúde</label>
+						<select class="form-control" id="editPlanoSaude" name="PlanodeSaudeId">
+							@foreach (var item in ViewBag.PlanodeSaude as SelectList)
+							{
+								<option value="@item.Value">@item.Text</option>
+							}
+						</select>
+					</div>
+
+					<div class="mb-3">
+						<label for="editImg" class="form-label">Nova Imagem</label>
+						<input type="file" class="form-control" id="editImg" name="imgUp" accept="image/*" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+					<input type="submit" value="Salvar" class="btn btn-primary" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- Certifique-se de incluir o jQuery antes do seu script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+	// Carrega os dados do paciente no modal ao abrir
+	var editPacienteModal = document.getElementById('editPacienteModal');
+	editPacienteModal.addEventListener('show.bs.modal', function (event) {
+		var button = event.relatedTarget; // Botão que acionou o modal
+		var id = button.getAttribute('data-id');
+		var nome = button.getAttribute('data-nome');
+		var cpf = button.getAttribute('data-cpf');
+		var rg = button.getAttribute('data-rg');
+		var dataNascimento = button.getAttribute('data-datanascimento');
+		var endereco = button.getAttribute('data-endereco');
+		var telefone = button.getAttribute('data-telefone');
+		var planoSaudeId = button.getAttribute('data-planosaudeid');
+
+		// Preenche os campos do modal com os valores
+		document.getElementById('PacienteId').value = id;
+		document.getElementById('editNome').value = nome;
+		document.getElementById('editCPF').value = cpf;
+		document.getElementById('editRG').value = rg;
+		document.getElementById('editDataNascimento').value = dataNascimento;
+		document.getElementById('editEndereco').value = endereco;
+		document.getElementById('editTelefone').value = telefone;
+		document.getElementById('editPlanoSaude').value = planoSaudeId;
+		document.getElementById('editImg').value = ""; // Limpa o campo de imagem para o caso de novo upload
+	});
+
+</script>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteModalLabel">Confirmar exclusão</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Tem certeza de que deseja excluir este item?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				<form asp-action="Delete" method="post">
+					<input type="hidden" id="deleteId" name="id" value="" />
+					<button type="submit" class="btn btn-danger">Excluir</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+	<script>
+		var deleteModal = document.getElementById('deleteModal');
+		deleteModal.addEventListener('show.bs.modal', function (event) {
+			var button = event.relatedTarget;
+			var id = button.getAttribute('data-id');
+			var deleteIdInput = deleteModal.querySelector('#deleteId');
+			deleteIdInput.value = id;
+		});
+	</script>

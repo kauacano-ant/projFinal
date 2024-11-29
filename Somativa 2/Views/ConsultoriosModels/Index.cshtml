@@ -1,0 +1,549 @@
+﻿@model IEnumerable<Somativa_2.Models.ConsultoriosModel>
+
+@{
+    ViewData["Title"] = "Index";
+
+    List<Categ> categorias = new List<Categ>();
+    categorias.Add(new Categ { CategId = new Guid(), Nome = "Todas" });
+    var categ = ViewData["Categ"] as List<Categ>;
+
+    foreach (var item in categ)
+    {
+        categorias.Add(new Categ { CategId = item.CategId, Nome = item.Nome });
+    }
+}
+
+<div class="container-fluid px-0 d-none d-xl-block d-lg-none" style=" position:relative; height:auto;">
+    <img src="/img/heroCon.png" style="margin-left:-119px;margin-top:-16px; height: 580px;width:1526.5px;position: absolute;" />
+    <div class="container col-xxl-8 px-4 py-5" style="position:relative;left:100px;">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-lg-10" style="margin-top:150px">
+                <h1 class="display-3 fw-bold text-body-emphasis lh-1 mb-3 text-white">MARQUE SUA CONSULTA MÉDICA ONLINE</h1>
+                <p class="lead text-white">
+                    Um amanhã mais saudável começa hoje: Agende sua consulta!
+                    Seu bem-estar, nossa experiência: marque sua consulta hoje mesmo.
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Agende sua Consulta</button>
+                    <a class=" btn btn-outline-secondary btn-lg px-4 me-md-2" asp-area="" asp-controller="FeedbackModels" asp-action="Index">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg> Deixe seu Feedback
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-0 d-block d-xl-none d-lg-none" style=" position:relative; height:auto;">
+    <img src="/img/heroCon.png" style="width:100%;margin-left:auto;height:auto" />
+    <div class="container px-3 py-4">
+        <div class="row flex-column align-items-center g-4 py-2">
+            <div class="col-lg-6" style="margin-top:20px">
+                <h1 class="display-3 fw-bold text-body-emphasis lh-1 mb-3">MARQUE SUA CONSULTA MÉDICA ONLINE</h1>
+                <p class="lead">
+                    Um amanhã mais saudável começa hoje: Agende sua consulta!
+                    Seu bem-estar, nossa experiência: marque sua consulta hoje mesmo.
+                </p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Agende sua Consulta</button>
+                    <a class=" btn btn-outline-secondary btn-lg px-4 me-md-2" asp-area="" asp-controller="FeedbackModels" asp-action="Index">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg> Deixe seu Feedback
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid px-0 d-none d-xl-none d-lg-block" style=" position:relative; height:auto;">
+    <img src="/img/heroCon.png" style="margin-left:-200px;margin-top:-18px;height:539px;position:absolute" />
+    <div class="container col-xxl-8 px-4 py-5" style="position:relative;left:-550px">
+        <div class="row flex-lg-row-reverse align-items-center g-4 py-2">
+            <div class="col-lg-6">
+                <h1 class="display-3 fw-bold text-body-emphasis lh-1 mb-3">MARQUE SUA CONSULTA MÉDICA ONLINE</h1>
+                <p class="lead">
+                    Um amanhã mais saudável começa hoje: Agende sua consulta!
+                    Seu bem-estar, nossa experiência: marque sua consulta hoje mesmo.
+                </p>
+                <div class="d-grid gap-2 d-lg-flex justify-content-lg-center">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Agende sua Consulta</button>
+                    <button type="button" class="btn btn-outline-secondary btn-lg px-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
+                        </svg> Deixe seu Feedback
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+            <img src="@Url.Action("GetImage", "Relatorio", new { imageName = "imagem.png" })" alt="Descrição da imagem">
+            -->
+
+
+<form class="m-3 d-none d-xl-block d-md-none">
+    <div id="filtros " class="d-flex m-2" style="flex-direction:row-reverse">
+        <button asp-action="SearchProd" class="btn text-white m-2 btn-primary " style="height:43px;width:140px; font-size:19px;">Filtrar</button>
+        <a class="btn btn-secondary m-2 text-center" asp-action="Index" style="height:43px;width:140px; font-size:19px;">Cancelar</a>
+        <select name="inCategoria" class="form-select m-2" style="height:43px;width:1100px">
+            @foreach (var item in categ)
+            {
+                <option value="@item.CategId">@item.Nome</option>
+            }
+        </select>
+
+    </div>
+</form>
+
+
+
+<form class="m-3 d-block d-xl-none d-md-none">
+    <div id="filtros" class="d-flex flex-column flex-md-row-reverse m-2">
+        <select name="inCategoria" class="form-select m-2 " style="height:43px;width:100%">
+            @foreach (var item in categ)
+            {
+                <option value="@item.CategId">@item.Nome</option>
+            }
+        </select>
+        <div class="d-flex flex-row-reverse flex-md-row-reverse justify-content-start w-100">
+            <button asp-action="SearchProd" class="btn text-white m-2 btn-primary " style="height:43px;width:140px; font-size:19px;">Filtrar</button>
+            <a class="btn btn-secondary m-2 text-center" asp-action="Index" style="height:43px;width:140px; font-size:19px;">Cancelar</a>
+        </div>
+
+
+    </div>
+</form>
+
+<form class="m-3 d-none d-xl-none d-md-block">
+    <div id="filtros" class="d-flex flex-column align-items-center">
+        <select name="inCategoria" class="form-select mb-3" style="height:43px; width:100%; max-width:500px;">
+            @foreach (var item in categ)
+            {
+                <option value="@item.CategId">@item.Nome</option>
+            }
+        </select>
+        <div class="d-flex justify-content-between" style="width:100%; max-width:500px;">
+            <a class="btn btn-secondary text-center" asp-action="Index" style="height:43px; width:48%; font-size:19px;">Cancelar</a>
+            <button asp-action="SearchProd" class="btn text-white btn-primary" style="height:43px; width:48%; font-size:19px;">Filtrar</button>
+        </div>
+    </div>
+</form>
+
+
+<button style="margin:60px" type="button" class="btn btn-primary d-none d-xl-block d-md-none" data-bs-toggle="modal" data-bs-target="#createConsultorioModal">
+    Criar Novo Consultório
+</button>
+<button style="margin:60px;width:300px;height:40px;margin-left:40px" type="button" class="btn btn-primary d-block d-xl-none d-md-none" data-bs-toggle="modal" data-bs-target="#createConsultorioModal">
+    Criar Novo Consultório
+</button>
+<button style="margin: 60px auto; width: 300px; height: 40px;" type="button" class="btn btn-primary  d-none d-xl-none d-md-block text-center" data-bs-toggle="modal" data-bs-target="#createConsultorioModal">
+    Criar Novo Consultório
+</button>
+
+<div>
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3 mx-auto" style="max-width:100%; border-radius:30px">
+            <div class="row g-3 align-items-center">
+                <!-- Coluna da imagem -->
+                <div class="col-12 col-md-4 text-center">
+                    <img src="~/img/@item.img" alt="Imagem da Notícia" class="img-fluid" style="border-radius:10px" />
+                </div>
+
+                <!-- Coluna do conteúdo -->
+                <div class="col-12 col-md-8 d-flex flex-column">
+                    <div class="card-body">
+                        <h2 class="card-title fs-4 text-primary">@Html.DisplayFor(modelItem => item.Nome)</h2>
+                        <p class="card-text fs-6 text-dark">@Html.DisplayFor(modelItem => item.Descricao)</p>
+                    </div>
+
+                    <!-- Botões de ação -->
+                    <div class="d-flex flex-wrap justify-content-center justify-content-md-end mt-3">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <div class="m-2">
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editConsultorioModal"
+                                        data-id="@item.ConsultorioId" data-nome="@item.Nome" data-endereco="@item.Endereco"
+                                        data-telefone="@item.Telefone" data-especialidade="@item.Especialidade" data-email="@item.Email"
+                                        data-categid="@item.CategId" data-img="@item.img" data-descricao="@item.Descricao">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" color="#157EBB" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="m-2">
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                                        data-id="@item.ConsultorioId"
+                                        data-nome="@item.Nome"
+                                        data-telefone="@item.Telefone"
+                                        data-email="@item.Email"
+                                        data-endereco="@item.Endereco"
+                                        data-especialidade="@item.Especialidade"
+                                        data-descricao="@item.Descricao"
+                                        data-img="@Url.Content($"~/img/{item.img}")">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" color="#157EBB" height="25" fill="currentColor" class="bi bi-folder2-open" viewBox="0 0 16 16">
+                                        <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="m-2">
+                                <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.ConsultorioId">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" color="#157EBB" height="25" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+                                    </svg>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="m-2">
+                                <a asp-action="Details" asp-route-id="@item.ConsultorioId" class="btn btn-primary w-100">
+                                    AGENDAR
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div style="margin:10px; margin-top:50px">
+    <!-- Título e parágrafo para desktop -->
+    <h1 style="color:#157EBB;" class="text-center d-none d-xl-block">UMA CLÍNICA MÉDICA ACESSÍVEL</h1>
+    <p class="text-center d-none d-xl-block" style="font-size:19px">
+        Somos Viva + porque nossa gestão e forma de atendimento são baseadas nos 5 princípios abaixo:
+    </p>
+
+    <!-- Título e parágrafo para celular e tablet -->
+    <h1 style="color:#157EBB;" class="display-3 fw-bold text-body-emphasis lh-1 mb-3 d-block d-xl-none">UMA CLÍNICA MÉDICA ACESSÍVEL</h1>
+    <p class="d-block d-xl-none" style="font-size:19px; text-align:justify">
+        Somos Viva + porque nossa gestão e forma de atendimento são baseadas nos 5 princípios abaixo:
+    </p>
+
+    <div class="row justify-content-center g-4">
+        <!-- Card 1 -->
+        <div class="col-12 col-md-4 col-lg-2 mx-auto d-flex flex-column align-items-center">
+            <div class="border border-black" style="width:150px; border-radius:20px; margin:20px;">
+                <img src="/img/a.png" style="width:100%; border-radius:15px;" />
+            </div>
+            <div style="width:150px" class="text-center">
+                <p style="font-size:15px; flex-wrap:wrap;" class="fw-bold text-center">ATENDIMENTO COM O CARINHO E ATENÇÃO</p>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-12 col-md-4 col-lg-2 mx-auto d-flex flex-column align-items-center">
+            <div class="border border-black" style="width:150px; border-radius:20px; margin:20px;">
+                <img src="/img/e.png" style="width:100%; border-radius:15px;" />
+            </div>
+            <div style="width:150px" class="text-center">
+                <p style="font-size:15px; flex-wrap:wrap;" class="fw-bold text-center">OS MELHORES MÉDICOS ESPECIALISTAS</p>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-12 col-md-4 col-lg-2 mx-auto d-flex flex-column align-items-center">
+            <div class="border border-black" style="width:150px; border-radius:20px; margin:20px;">
+                <img src="/img/d.png" style="width:100%; border-radius:15px;" />
+            </div>
+            <div style="width:150px" class="text-center">
+                <p style="font-size:15px; flex-wrap:wrap;" class="fw-bold text-center">CONSULTAS, EXAMES E CIRURGIAS</p>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-12 col-md-4 col-lg-2 mx-auto d-flex flex-column align-items-center">
+            <div class="border border-black" style="width:150px; border-radius:20px; margin:20px;">
+                <img src="/img/b.png" style="width:100%; border-radius:15px;" />
+            </div>
+            <div style="width:150px" class="text-center">
+                <p style="font-size:15px; flex-wrap:wrap;" class="fw-bold text-center">AGENDAMENTO RÁPIDO E DESCOMPLICADO</p>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="col-12 col-md-4 col-lg-2 mx-auto d-flex flex-column align-items-center">
+            <div class="border border-black" style="width:150px; border-radius:20px; margin:20px;">
+                <img src="/img/c.png" style="width:100%; border-radius:15px;" />
+            </div>
+            <div style="width:150px" class="text-center">
+                <p style="font-size:15px; flex-wrap:wrap;" class="fw-bold text-center">UMA UNIDADE PERTO DE VOCÊ</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteId" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- detales modal -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-custom modal-dialog-centered">
+        <!-- Adicione aqui a classe modal-custom -->
+        <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title " id="detailsModalLabel">Detalhes dos consultorios </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex">
+                <div style="width:370px;height:370px;" class=" d-none d-xl-block">
+                    <img id="consultorioImagem" src="" alt="Imagem do consultorio" style="width:100%; height:100%; border-radius:10px; margin-bottom:15px;">
+                </div>
+                <div class="m-3 " style="width:590px;height:350px;">
+                    <h2 class="m-2"><strong></strong> <span id="consultorioNome"></span></h2>
+                    <div class="d-flex">
+                        <div class="m-2"><p class="d-flex flex-column"><strong>Telefone:</strong> <span id="consultorioTelefone"></span></p></div>
+                        <div class="m-2"><p class="d-flex flex-column "><strong>Email:</strong> <span id="consultorioEmail"></span></p></div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="m-2"><p class="d-flex flex-column"><strong>Endereço:</strong> <span id="consultorioEndereco"></span></p></div>
+                        <div class="m-2"><p class="d-flex flex-column"><strong>Especialidade:</strong> <span id="consultorioEspecialidade"></span></p></div>
+                    </div>
+                    <div class="m-2"><p class="d-flex flex-column m-2"><strong>Descricao:</strong> <span id="consultorioDescricao"></span></p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editConsultorioModal" tabindex="-1" aria-labelledby="editConsultorioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editConsultorioModalLabel">Editar Consultório</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form asp-action="Edit" asp-controller="ConsultoriosModels" method="post" enctype="multipart/form-data" id="formEditConsultorioModal">
+                <div class="modal-body">
+                    <input type="hidden" id="editConsultorioId" name="ConsultorioId" />
+
+                    <div class="mb-3">
+                        <label for="editNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="editNome" name="Nome" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEndereco" class="form-label">Endereço</label>
+                        <input type="text" class="form-control" id="editEndereco" name="Endereco" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editTelefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="editTelefone" name="Telefone" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEspecialidade" class="form-label">Especialidade</label>
+                        <input type="text" class="form-control" id="editEspecialidade" name="Especialidade" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="Email" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="editCategId" class="form-label">Categoria</label>
+                        <select class="form-control" id="editCategId" name="CategId">
+                            <!-- Exemplo de preenchimento dinâmico de categorias -->
+                            @foreach (var item in categ)
+                            {
+                                <option value="@item.CategId">@item.Nome</option>
+                            }
+
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editDescricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="editDescricao" name="Descricao"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editImg" class="form-label">Nova Imagem</label>
+                        <input type="file" class="form-control" id="editImg" name="imgUp" accept="image/*" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Salvar" class="btn btn-primary w-25 m-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal de criação de Consultório -->
+<div class="modal fade" id="createConsultorioModal" tabindex="-1" aria-labelledby="createConsultorioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createConsultorioModalLabel">Criar Novo Consultório</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Formulário configurado para enviar dados ao controlador ConsultoriosModels -->
+            <form asp-action="Create" asp-controller="ConsultoriosModels" method="post" enctype="multipart/form-data" id="formCreateConsultorioModal">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="createNome" class="form-label">Nome</label>
+                        <input type="text" class="form-control" id="createNome" name="Nome" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createEndereco" class="form-label">Endereço</label>
+                        <input type="text" class="form-control" id="createEndereco" name="Endereco" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createTelefone" class="form-label">Telefone</label>
+                        <input type="text" class="form-control" id="createTelefone" name="Telefone" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createEspecialidade" class="form-label">Especialidade</label>
+                        <input type="text" class="form-control" id="createEspecialidade" name="Especialidade" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="createEmail" name="Email" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createImg" class="form-label">Imagem</label>
+                        <input type="file" class="form-control" id="createImg" name="imgUp" accept="image/*" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="createCategId" class="form-label">Categoria</label>
+                        <select class="form-control" id="createCategId" name="CategId" required>
+                            <!-- Options devem ser preenchidas no backend com ViewData -->
+                            @foreach (var item in categ)
+                            {
+                                <option value="@item.CategId">@item.Nome</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createDescricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" id="createDescricao" name="Descricao" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Criar" class="btn btn-primary w-25 m-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .modal-custom {
+        max-width: 1000px; /* Define a largura máxima da modal */
+        width: 100%; /* Garante que a modal use 100% da largura máxima */
+    }
+</style>
+
+
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var deleteIdInput = deleteModal.querySelector('#deleteId');
+        deleteIdInput.value = id;
+    });
+    var detailsModal = document.getElementById('detailsModal');
+    detailsModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var nome = button.getAttribute('data-nome');
+        var telefone = button.getAttribute('data-telefone');
+        var email = button.getAttribute('data-email');
+        var endereco = button.getAttribute('data-endereco');
+        var especialidade = button.getAttribute('data-especialidade');
+        var imgSrc = button.getAttribute('data-img');
+        var descricao = button.getAttribute('data-descricao');
+
+
+
+        detailsModal.querySelector('#consultorioNome').textContent = nome;
+        detailsModal.querySelector('#consultorioTelefone').textContent = telefone;
+        detailsModal.querySelector('#consultorioEmail').textContent = email;
+        detailsModal.querySelector('#consultorioEndereco').textContent = endereco;
+        detailsModal.querySelector('#consultorioEspecialidade').textContent = especialidade;
+        detailsModal.querySelector('#consultorioDescricao').textContent = descricao;
+        detailsModal.querySelector('#consultorioImagem').src = imgSrc;
+    });
+    var editConsultorioModal = document.getElementById('editConsultorioModal');
+    editConsultorioModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        document.getElementById('editConsultorioId').value = button.getAttribute('data-id');
+        document.getElementById('editNome').value = button.getAttribute('data-nome');
+        document.getElementById('editEndereco').value = button.getAttribute('data-endereco');
+        document.getElementById('editTelefone').value = button.getAttribute('data-telefone');
+        document.getElementById('editEspecialidade').value = button.getAttribute('data-especialidade');
+        document.getElementById('editEmail').value = button.getAttribute('data-email');
+        document.getElementById('editCategId').value = button.getAttribute('data-categid');
+        document.getElementById('editDescricao').value = button.getAttribute('data-descricao');
+        document.getElementById('editImg').value = "";
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const createConsultorioModal = document.getElementById('createConsultorioModal');
+        const formCreateConsultorioModal = document.getElementById('formCreateConsultorioModal');
+
+        // Quando a modal é aberta, reseta o formulário
+        createConsultorioModal.addEventListener('show.bs.modal', function () {
+            formCreateConsultorioModal.reset();
+        });
+
+        // Quando o formulário é enviado, enviar os dados via AJAX
+        formCreateConsultorioModal.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            // Envio do formulário via AJAX
+            const formData = new FormData(formCreateConsultorioModal);
+
+            fetch('/ConsultoriosModels/Create', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Fechar a modal após o envio bem-sucedido
+                        const modalInstance = bootstrap.Modal.getInstance(createConsultorioModal);
+                        modalInstance.hide();
+
+                        // Atualizar a lista ou redirecionar
+                        location.reload();
+                    } else {
+                        // Tratar erro
+                        alert("Erro ao criar o consultório.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                    alert("Ocorreu um erro ao enviar o formulário.");
+                });
+        });
+    });
+
+</script>

@@ -1,0 +1,54 @@
+﻿@model Somativa_2.Models.ConsultasModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center" style="margin-top:70px">Faça uma consulta com a gente</h1>
+
+<div class="d-flex justify-content-center" style="margin-top:70px">
+    <form asp-action="Create" enctype="multipart/form-data" class="w-100 px-3">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-row d-flex flex-wrap justify-content-center">
+            <div class="form-group col-12 col-md-6 mb-3 px-2">
+                <label asp-for="DataConsultas" class="control-label"></label>
+                <input asp-for="DataConsultas" class="form-control" />
+                <span asp-validation-for="DataConsultas" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-6 mb-3 px-2">
+                <label asp-for="Hora" class="control-label"></label>
+                <input asp-for="Hora" class="form-control" />
+                <span asp-validation-for="Hora" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-row d-flex flex-wrap justify-content-center">
+            <div class="form-group col-12 col-md-6 mb-3 px-2">
+                <label asp-for="PacienteId" class="control-label"></label>
+                <select asp-for="PacienteId" class="form-control" asp-items="ViewBag.Pacientes" disabled="disabled"></select>
+                <span asp-validation-for="PacienteId" class="text-danger"></span>
+            </div>
+            <div class="form-group col-12 col-md-6 mb-3 px-2">
+                <label asp-for="ConsultorioId" class="control-label"></label>
+                <select asp-for="ConsultorioId" class="form-control" asp-items="ViewBag.Consultorio"></select>
+                <span asp-validation-for="ConsultorioId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center">
+            <div class="m-2 d-flex">
+                <input type="submit" value="Salva" class="btn btn-primary w-100" />
+            </div>
+            <div class="m-2 d-flex">
+                <a asp-action="Index" class="btn btn-secondary w-100">Voltar</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

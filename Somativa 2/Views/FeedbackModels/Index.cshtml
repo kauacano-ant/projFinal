@@ -1,0 +1,434 @@
+﻿@model IEnumerable<Somativa_2.Models.FeedbackModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (User.IsInRole("Admin"))
+{
+    <h1 class="text-center fw-bold">FEEDBACK</h1>
+
+    <!-- Descrição adaptada para diferentes tamanhos de tela -->
+    <p class="m-3 text-center d-none d-xl-block" style="font-size:20px">
+        Confira os feedbacks dos clientes abaixo e tenha uma visão clara sobre suas experiências. Aqui, você pode ver como nosso atendimento é avaliado, com notas de 1 a 5 estrelas, que refletem a satisfação e qualidade dos serviços prestados.
+    </p>
+    <p class="m-3 d-block d-xl-none" style="font-size:18px; text-align:justify">
+        Confira os feedbacks dos clientes e veja como nosso atendimento é avaliado. Notas de 1 a 5 estrelas refletem a qualidade dos serviços prestados.
+    </p>
+
+    <!-- Tabela (exibida apenas em telas médias e maiores) -->
+    <div class="table-responsive d-none d-md-block">
+        <table class="table table-bordered">
+            <thead class="table-primary text-center" style="background-color: #d0e5f5;">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.Comentario)</th>
+                    <th>@Html.DisplayNameFor(model => model.Nota)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            @{
+                                var comentario = item.Comentario.Length > 50 ? item.Comentario.Substring(0, 50) + "..." : item.Comentario;
+                            }
+                            @comentario
+                        </td>
+                        <td>
+                            <div class="star-rating">
+                                @for (int i = 5; i >= 1; i--)
+                                {
+                                    <input type="radio" id="star@item.FeedbackId@i" name="Estrelas_@item.FeedbackId" value="@i"
+                                    @(item.Nota == i ? "checked" : "") disabled />
+                                    <label for="star_@item.FeedbackId@i" title="@i estrelas">★</label>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <!-- Botões de ação -->
+                                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                                        data-comentario="@item.Comentario" data-data="@item.Data" data-nota="@item.Nota">
+                                    <i class="bi bi-folder2-open" style="color: #157EBB; font-size: 25px;"></i>
+                                </button>
+                                <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.FeedbackId">
+                                    <i class="bi bi-trash-fill" style="color: #157EBB; font-size: 25px;"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Cards (exibidos apenas em dispositivos móveis) -->
+    <div class="d-block d-md-none">
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-truncate" style="max-width: 100%; font-size:20px">
+                        @{
+                            var comentario = item.Comentario.Length > 50 ? item.Comentario.Substring(0, 50) + "..." : item.Comentario;
+                        }
+                        @comentario
+                    </h5>
+                    <p class="card-text">
+                        <strong style="font-size:15px">Nota:</strong>
+                        <span class="star-rating">
+                            <div class="star-rating d-flex justify-content-center align-items-center">
+                                @for (int i = 5; i >= 1; i--)
+                                {
+                                    <label class="m-1" style="font-size: 25px; color: @(i <= item.Nota ? "#ffc107" : "#ccc");">
+                                        ★
+                                    </label>
+                                }
+                            </div>
+                        </span>
+                    </p>
+                    <div class="d-flex justify-content-end ">
+                        <button class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#detailsModal"
+                                data-comentario="@item.Comentario" data-data="@item.Data" data-nota="@item.Nota">
+                            Detalhes
+                        </button>
+                        <button class="btn btn-danger m-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.FeedbackId">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="text-end">
+        <a asp-action="Grafico" class="btn btn-primary">Gerar Gráfico</a>
+    </div>
+
+}
+else
+
+{
+
+    <div class="container-fluid px-0" style="position:relative; height:auto;">
+        <img src="~/img/os (7) 2.png" class="d-none d-xl-block" style="margin-left:-125px; margin-top:-18px; height: 693.5px; width:1540px; position: absolute;" alt="Image Banner" />
+        <div class="container col-xxl-8 px-4 py-5 d-none d-xl-block" style="position:relative; left:-500px">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                <div class="col-lg-9">
+                    <h1 class="display-3 fw-bold text-body-emphasis lh-1 text-white mb-3">AJUDE-NOS A CUIDAR AINDA MELHOR DE VOCÊ!</h1>
+                    <p class="lead text-white"> Queremos saber como podemos continuar aprimorando nossos serviços para atender melhor suas expectativas. Suas opiniões, sugestões e elogios são valiosos para a nossa evolução e para garantir que ofereçamos sempre o melhor atendimento.</p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+  
+
+    <div class="container-fluid px-0" style="position:relative; height:auto;">
+        <img src="~/img/os (7) 2.png" class="d-none" style="margin-left:-125px; margin-top:-18px; height: 693.5px; width:1540px; position: absolute;" alt="Image Banner" />
+        <div class="container col-xxl-8 px-4 py-5 d-none d-xl-block" style="position:relative; left:-500px">
+            <div class="row flex-lg-row-reverse align-items-center g-5 py-5 ">
+                <div class="col-lg-9">
+                    <h1 class="display-3 fw-bold text-body-emphasis lh-1 text-white mb-3 d-none">AJUDE-NOS A CUIDAR AINDA MELHOR DE VOCÊ!</h1>
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+    <!-- Seção de feedback responsiva -->
+    <section class="feedback-section py-5" >
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col-md-5 col-lg-6 mb-4 mb-md-0 ">
+                    <h2 class="fw-bold">FEEDBACK</h2>
+                    <p class="fs-5">Compartilhe sua opinião sobre nossa experiência e nos diga como podemos melhorar. Juntos, podemos tornar nossos serviços ainda mais completos e alinhados às suas necessidades!</p>
+                    <button type="button" class="btn btn-primary mt-4" data-bs-toggle="modal" data-bs-target="#createFeedbackModal">
+                        Deixe um Feedback
+                    </button>
+                </div>
+                <div class="col-md-7 col-lg-6 ">
+                    <div class="emojis d-flex justify-content-center gap-4 fs-1">
+                        <span>😡</span>
+                        <span>🙁</span>
+                        <span>😐</span>
+                        <span>🙂</span>
+                        <span>😄</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .emojis {
+            font-size: 40px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+            .emojis span {
+                cursor: pointer;
+                margin: 0 10px;
+                transition: transform 0.3s ease, opacity 0.3s ease;
+            }
+
+                .emojis span:hover {
+                    transform: scale(1.5); /* Aumenta a carinha em 50% */
+                }
+
+                .emojis span:not(:hover) {
+                    transform: scale(0.8); /* Diminui as carinhas que não estão em hover */
+                }
+
+    </style>
+}
+<div class="container mb-5 mt-lg-5">
+    <h1 class="m-2 p-2">Confira as perguntas mais recentes</h1>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion">
+            <h2 class="accordion-header " id="flush-headingOne">
+                <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Quais são as melhores práticas para manter minha saúde (exercícios, dieta, etc.)?
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+                </div>
+            </div>
+        </div>
+        <div class="accordion">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Que fatores de risco eu deveria monitorar?
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Como posso entrar em contato com você caso tenha mais perguntas após a consulta?
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+            </div>
+        </div>
+    </div>
+    <div class=" accordion">
+        <h2 class="accordion-header" id="flush-headingFor">
+            <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFor" aria-expanded="false" aria-controls="flush-collapseFor">
+                Como o estresse pode afetar minha saúde, e o que posso fazer para gerenciá-lo?
+            </button>
+        </h2>
+        <div id="flush-collapseFor" class="accordion-collapse collapse" aria-labelledby="flush-headingFor" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    </div>
+    <div class="modal fade " id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirmar exclusão</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeza de que deseja excluir este item?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" id="deleteId" name="id" value="" />
+                        <button type="submit" class="btn btn-danger">Exculir</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="detailsModalLabel">Detalhes do Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h5><strong>Comentário:</strong></h5>
+                    <p id="feedbackComentario"></p>
+
+                    <h5><strong>Data:</strong></h5>
+                    <p id="feedbackData"></p>
+
+                    <h5><strong>Nota:</strong></h5>
+                    <div id="feedbackNota" class="star-rating">
+                        <!-- As estrelas serão inseridas aqui dinamicamente -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal de criação de feedback -->
+    <div class="modal fade" id="createFeedbackModal" tabindex="-1" aria-labelledby="createFeedbackModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createFeedbackModalLabel">Deixe o seu Feedback</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="feedbackForm" method="post" asp-action="Edit">
+                    <div class="modal-body">
+                        <!-- Campo de texto para Comentário -->
+                        <div class="mb-3">
+                            <label for="comentario" class="form-label">Comentário</label>
+                            <textarea class="form-control" id="comentario" name="Comentario" required></textarea>
+                        </div>
+
+                        <!-- Campo de data -->
+                        <div class="mb-3">
+                            <label for="data" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="data" name="Data" required>
+                        </div>
+
+                        <!-- Campo de nota com rádio de estrelas corrigido -->
+                        <div class="mb-3">
+                            <label class="form-label d-block">Nota</label>
+                            <div class="star-rating">
+                                <input type="radio" name="Nota" value="5" id="star5" required><label for="star5">★</label>
+                                <input type="radio" name="Nota" value="4" id="star4"><label for="star4">★</label>
+                                <input type="radio" name="Nota" value="3" id="star3"><label for="star3">★</label>
+                                <input type="radio" name="Nota" value="2" id="star2"><label for="star2">★</label>
+                                <input type="radio" name="Nota" value="1" id="star1"><label for="star1">★</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript para enviar o formulário e exibir o alerta -->
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Impede o envio padrão do formulário
+
+            // Obtém os dados do formulário
+            const formData = new FormData(this);
+
+            // Envia os dados do formulário usando fetch API
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Fecha a modal após o envio bem-sucedido
+                        var modalElement = document.getElementById('createFeedbackModal');
+                        var modalInstance = bootstrap.Modal.getInstance(modalElement);
+                        modalInstance.hide();
+
+                        // Exibe o alerta de agradecimento
+                        alert('Obrigado pelo feedback!');
+
+                        // Recarrega a página ou redireciona, se necessário
+                        window.location.reload();
+                    } else {
+                        // Exibe um erro, se necessário
+                        alert('Erro ao enviar feedback.');
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
+        });
+    </script>
+
+    <style>
+        /* Estilização das estrelas */
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            font-size: 2rem;
+            color: #ccc;
+            cursor: pointer;
+        }
+
+            .star-rating input:checked ~ label,
+            .star-rating label:hover,
+            .star-rating label:hover ~ label {
+                color: #f5b301;
+            }
+
+        .star-rating span {
+            margin-right: 4px;
+            font-size: 24px;
+        }
+    </style>
+    <script>
+        //  delete Modal
+        var deleteModal = document.getElementById('deleteModal');
+        deleteModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var deleteIdInput = deleteModal.querySelector('#deleteId');
+            deleteIdInput.value = id;
+        });
+        document.getElementById('detailsModal').addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;  // Botão que acionou a modal
+            var comentario = button.getAttribute('data-comentario');
+            var data = button.getAttribute('data-data');
+            var nota = parseInt(button.getAttribute('data-nota'));
+
+            // Atualiza os elementos da modal com os dados do feedback
+            document.getElementById('feedbackComentario').textContent = comentario;
+            document.getElementById('feedbackData').textContent = new Date(data).toLocaleDateString('pt-BR');
+
+            // Gera as estrelas utilizando os inputs de rádio para a nota
+            var feedbackNotaDiv = document.getElementById('feedbackNota');
+            feedbackNotaDiv.innerHTML = '';  // Limpa as estrelas anteriores
+            for (var i = 5; i >= 1; i--) {
+                var radioInput = document.createElement('input');
+                radioInput.type = 'radio';
+                radioInput.id = 'star' + i;
+                radioInput.name = 'Estrelas';
+                radioInput.value = i;
+                radioInput.checked = (i === nota); // Marca a estrela conforme a nota
+                radioInput.disabled = true; // Desabilita os inputs para visualização
+
+                var label = document.createElement('label');
+                label.setAttribute('for', 'star' + i);
+                label.setAttribute('title', i + ' estrelas');
+                label.textContent = '★';
+                label.style.fontSize = '24px';
+                label.style.color = (i <= nota) ? '#FFD700' : '#ccc'; // Cor dourada para as estrelas preenchidas
+
+                feedbackNotaDiv.appendChild(radioInput);
+                feedbackNotaDiv.appendChild(label);
+            }
+        });
+    </script>

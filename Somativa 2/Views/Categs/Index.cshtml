@@ -1,0 +1,247 @@
+﻿@model IEnumerable<Somativa_2.Models.Categ>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">CONFIGURAÇÃO DE CONSULTÓRIO</h1>
+
+    <div class="d-flex justify-content-center mb-4 ">
+        <a asp-action="Create" class="btn btn-primary d-none px-5 py-2 shadow-sm">Criar Novo</a>
+    </div>
+    <div class="d-flex justify-content-center mb-4">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCategModal">
+    Criar Categoria
+</button>
+    </div>
+   
+
+    <div class="row">
+        @foreach (var item in Model)
+
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card border-0 shadow h-100">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div class="text-center">
+                            <h5 class="card-title text-primary fw-bold">@Html.DisplayFor(modelItem => item.Nome)</h5>
+                            <p class="text-muted">Categoria registrada no sistema.</p>
+                        </div>
+                        <div class="d-flex justify-content-center mt-3">
+                           <button type="button" class="btn btn-link" onclick="openEditModal('id', 'nome')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" color="#157EBB" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                            </button>
+                            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@item.CategId">
+                                <i class="bi bi-trash-fill" style="color: #157EBB; font-size: 25px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="container mb-5">
+    <h1 class="m-2 p-2">Confira as perguntas mais recentes</h1>
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion">
+            <h2 class="accordion-header " id="flush-headingOne">
+                <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Quais são as melhores práticas para manter minha saúde (exercícios, dieta, etc.)?
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+                </div>
+            </div>
+        </div>
+        <div class="accordion">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Que fatores de risco eu deveria monitorar?
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                Como posso entrar em contato com você caso tenha mais perguntas após a consulta?
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+            </div>
+        </div>
+    </div>
+    <div class=" accordion">
+        <h2 class="accordion-header" id="flush-headingFor">
+            <button class="accordion-button collapsed m-2" style="background-color:#F1F1F1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFor" aria-expanded="false" aria-controls="flush-collapseFor">
+                Como o estresse pode afetar minha saúde, e o que posso fazer para gerenciá-lo?
+            </button>
+        </h2>
+        <div id="flush-collapseFor" class="accordion-collapse collapse" aria-labelledby="flush-headingFor" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+                Cada pessoa é única, e o que funciona para uma pessoa pode não funcionar para outra. É sempre uma boa ideia consultar um profissional de saúde ou nutricionista antes de fazer mudanças significativas na dieta ou na rotina de exercícios. Mantenha-se informado e faça ajustes conforme necessário para se adequar ao seu estilo de vida e necessidades pessoais.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza de que deseja excluir este item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteId" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">Excluir </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="createCategModal" tabindex="-1" aria-labelledby="createCategModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createCategModalLabel">Criar Nova Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Configura o formulário para enviar os dados para a ação Create -->
+            <form asp-action="Create" asp-controller="Categs" method="post" enctype="multipart/form-data" id="formCreateCategModal">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="createNome" class="form-label">Nome da Categoria</label>
+                        <input type="text" class="form-control" id="createNome" name="Nome" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Criar" class="btn btn-primary w-25 m-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="editCategModal" tabindex="-1" aria-labelledby="editCategModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editCategModalLabel">Editar Categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Formulário configurado para enviar os dados para a ação Edit -->
+            <form asp-action="Edit" asp-controller="Categs" method="post" id="formEditCategModal">
+                <input type="hidden" id="editCategId" name="CategId" />
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="editNome" class="form-label">Nome da Categoria</label>
+                        <input type="text" class="form-control" id="editNome" name="Nome" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <input type="submit" value="Salvar" class="btn btn-primary w-25 m-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Botão de ativação do modal (pode ser usado dinamicamente) -->
+
+
+<!-- Scripts -->
+    <script>
+        function openEditModal(id, nome) {
+            // Preenche os campos do modal com os dados da categoria
+            $("#editCategId").val(id);
+            $("#editNome").val(nome);
+
+            // Abre o modal
+            $("#editCategModal").modal('show');
+        }
+
+        $(document).ready(function () {
+            // Intercepta o envio do formulário para usar AJAX
+            $("#formEditCategModal").submit(function (event) {
+                event.preventDefault(); // Evita o envio padrão do formulário
+
+                const form = $(this);
+                const actionUrl = `${form.attr("action")}/${$("#editCategId").val()}`;
+                const formData = form.serialize();
+
+                $.post(actionUrl, formData)
+                    .done(function () {
+                        // Fechar o modal e recarregar a página
+                        $("#editCategModal").modal('hide');
+                        location.reload();
+                    })
+                    .fail(function () {
+                        alert("Erro ao editar a categoria. Tente novamente.");
+                    });
+            });
+        });
+    </script>
+
+<script>
+    $(document).ready(function () {
+        // Intercepta o envio do formulário para usar AJAX
+        $("#formCreateCategModal").submit(function (event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const form = $(this);
+            const actionUrl = form.attr("action");
+            const formData = new FormData(this);
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    // Fechar o modal e recarregar a página para refletir os dados
+                    $("#createCategModal").modal('hide');
+                    location.reload();
+                },
+                error: function () {
+                    alert("Erro ao criar a categoria. Tente novamente.");
+                }
+            });
+        });
+    });
+</script>
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var deleteIdInput = deleteModal.querySelector('#deleteId');
+        deleteIdInput.value = id;
+    });
+</script>

@@ -1,0 +1,121 @@
+﻿@model Somativa_2.Models.ConsultasModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Tem certeza de que deseja excluir este item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" id="deleteId" name="id" value="" />
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Detalhes da Consulta</h1>
+
+    <form enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- Seção de Data e Hora -->
+        <div class="row g-3">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="DataConsultas" class="form-label"></label>
+                    <input asp-for="DataConsultas" class="form-control" readonly />
+                    <span asp-validation-for="DataConsultas" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Hora" class="form-label"></label>
+                    <input asp-for="Hora" class="form-control" readonly />
+                    <span asp-validation-for="Hora" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção de Consultório -->
+        <div class="row g-3 mt-3">
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Consultorio.Nome" class="form-label"></label>
+                    <input asp-for="Consultorio.Nome" class="form-control" readonly />
+                    <span asp-validation-for="Consultorio.Nome" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label asp-for="Consultorio.Endereco" class="form-label"></label>
+                    <input asp-for="Consultorio.Endereco" class="form-control" readonly />
+                    <span asp-validation-for="Consultorio.Endereco" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Mapa Responsivo -->
+    <div class="mt-4">
+        <div id="map" class="w-100 rounded shadow" style="height: 400px;"></div>
+    </div>
+
+    <!-- Botões de Navegação -->
+    <div class="d-flex justify-content-between mt-4">
+        <a asp-action="Edit" asp-route-id="@Model?.ConsultaId" class="btn btn-primary w-50 m-2">Editar</a>
+        <button class="btn btn-danger w-50 m-2" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@Model.ConsultaId">
+            Excluir
+        </button>
+    </div>
+</div>
+
+
+<!-- Script do Google Maps -->
+<script async
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXP6KgjSD6Zh1HcAE-q6dh0634rjHftDE&callback=initMap">
+</script>
+
+<script>
+    function initMap() {
+        // Localização fixa: Brotas, SP
+        var brotas = { lat: -22.285567, lng: -48.126701 };
+
+        // Inicializa o mapa centralizado em Brotas
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 14,
+            center: brotas
+        });
+
+        // Adiciona um marcador em Brotas
+        var marker = new google.maps.Marker({
+            position: brotas,
+            map: map
+        });
+    }
+</script>
+
+<script>
+    var deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget;
+        var id = button.getAttribute('data-id');
+        var deleteIdInput = deleteModal.querySelector('#deleteId');
+        deleteIdInput.value = id;
+    });
+</script>

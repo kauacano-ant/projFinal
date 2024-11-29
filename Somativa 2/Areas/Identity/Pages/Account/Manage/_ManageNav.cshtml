@@ -1,0 +1,70 @@
+﻿@using Somativa_2.Data
+@using Somativa_2.Models
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject SprintContext _context
+
+@{
+	var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+	var user = await UserManager.GetUserAsync(User);
+	PacientesModel paciente = null;
+
+	try
+	{
+		if (user != null)
+		{
+			paciente = await _context.Paciente.FirstOrDefaultAsync(p => p.UserId == user.Id);
+		}
+	}
+	catch (Exception ex)
+	{
+		<p class="text-danger">Erro ao buscar informações: @ex.Message</p>
+	}
+}
+
+<div class="m-2" >
+	<div >
+		@if (!string.IsNullOrEmpty(paciente?.img))
+		{
+			<div class="text-center"><img src="~/img/@paciente.img" alt="Foto do Paciente" class="rounded-circle m-3" width="150" height="150" /></div>
+			
+		}
+		else
+		{
+			<div class="text-center">
+			<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person-circle rounded-circle m-3" viewBox="0 0 16 16">
+				<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+				<path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+			</svg>
+			</div>
+		}
+		@if (paciente != null)
+		{
+			<h2 class="text-center">@paciente.Nome</h2>
+			<div style="display:flex; flex-direction:column; justify-content:left">
+				<p>Email: @user.Email</p>
+				<p>CPF: @paciente.CPF</p>
+				<p>Telefone: @paciente.Telefone</p>
+			</div>
+
+		}
+		else
+		{
+			<p style="height:100px;text-align:center">Informações do paciente não encontradas.</p>
+		}
+	</div>
+	<div>
+		<hr />
+		<ul class="nav nav-pills flex-column">
+			<li class="nav-item"><a class="nav-link text-center @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Mudar Email</a></li>
+			<li class="nav-item"><a class="nav-link text-center @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Mudar Senha</a></li>
+			@if (hasExternalLogins)
+			{
+				<li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+			}
+			<a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Excluir permanentimente sua conta</a>
+		</ul>
+	</div>
+</div>
+
